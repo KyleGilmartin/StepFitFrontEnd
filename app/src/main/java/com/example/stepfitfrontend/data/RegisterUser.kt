@@ -6,3 +6,10 @@ data class RegisterUser(
     val Password_confirmation:String
 
 )
+
+data class LoginUserResponse(
+    val access_token :String="",
+    val token_type:String="",
+    val expires_in:String="",
+    val userName:String=""
+)

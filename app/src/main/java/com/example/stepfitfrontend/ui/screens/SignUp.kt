@@ -21,12 +21,14 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.stepfitfrontend.data.RegisterUser
 import com.example.stepfitfrontend.data.Resource
 import com.example.stepfitfrontend.ui.viewModel.MainViewModel
 
 @Composable
-fun SignUp(viewModel: MainViewModel) {
+fun SignUp(viewModel: MainViewModel,navHostController: NavHostController) {
 
     val registerState = viewModel.registerRequest.collectAsState().value
     val content = LocalContext.current
@@ -39,6 +41,16 @@ fun SignUp(viewModel: MainViewModel) {
     }
     val emailState = remember {
         mutableStateOf("")
+    }
+
+    val tokenPref = viewModel.prefToken().collectAsState().value
+    if (tokenPref.isNotEmpty()){
+        navHostController.navigate("profile"){
+            launchSingleTop = true
+            popUpTo("login"){
+                inclusive = true
+            }
+        }
     }
 
     Column(
@@ -103,8 +115,13 @@ fun SignUp(viewModel: MainViewModel) {
                     .show()
             }
             is Resource.Success ->{
-                Toast.makeText(content,"User Successfully Registered",Toast.LENGTH_LONG)
-                    .show()
+                viewModel.loginUser(username = emailState.value, password = passwordState.value)
+                navHostController.navigate("profile"){
+                    launchSingleTop = true
+                    popUpTo("signup"){
+                        inclusive = true
+                    }
+                }
             }
             is Resource.Error ->{
                 Toast.makeText(content,"Failed",Toast.LENGTH_LONG)
@@ -117,5 +134,5 @@ fun SignUp(viewModel: MainViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun SignUpPreview(){
-    SignUp(viewModel())
+    SignUp(viewModel(), rememberNavController())
 }

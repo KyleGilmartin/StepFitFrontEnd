@@ -10,7 +10,10 @@ import com.example.stepfitfrontend.ui.viewModel.MainViewModel
 fun MainScreen(navHostController: NavHostController,viewModel: MainViewModel){
     NavHost(navController = navHostController, startDestination = "signup"){
         composable("signup"){
-            SignUp(viewModel)
+            SignUp(viewModel,navHostController = navHostController)
+        }
+        composable("profile"){
+            Profile(viewModel = viewModel)
         }
     }
 }

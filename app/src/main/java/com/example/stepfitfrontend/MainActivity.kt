@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.stepfitfrontend.data.Api
+import com.example.stepfitfrontend.data.PreferenceStore
 import com.example.stepfitfrontend.data.Repository
 import com.example.stepfitfrontend.ui.screens.MainScreen
 import com.example.stepfitfrontend.ui.screens.SignUp
@@ -23,8 +24,12 @@ import com.example.stepfitfrontend.ui.viewModel.MainViewModelFactory
 
 class MainActivity : ComponentActivity() {
 
+    private val preferenceStore by lazy {
+        PreferenceStore(this)
+    }
+
     private val repository by lazy {
-        Repository(Api.authService)
+        Repository(Api.authService, preferenceStore = preferenceStore)
     }
 
     private val viewModel:MainViewModel by viewModels {
