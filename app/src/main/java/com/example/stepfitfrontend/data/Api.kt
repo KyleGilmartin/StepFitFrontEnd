@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object Api {
-    private val BASE_URL = R.string.BASE_URL.toString()
+    private val BASE_URL = ""
 
     const val API_PATH = "api/"
 

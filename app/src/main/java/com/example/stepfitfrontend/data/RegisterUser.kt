@@ -1,7 +1,8 @@
 package com.example.stepfitfrontend.data
 
 data class RegisterUser(
-    val email:String,
-    val password:String,
-    val password_confirmation:String
+    val Email:String,
+    val Password:String,
+    val Password_confirmation:String
+
 )
