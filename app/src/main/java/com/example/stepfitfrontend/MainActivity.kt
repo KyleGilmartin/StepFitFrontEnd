@@ -21,6 +21,7 @@ import com.example.stepfitfrontend.ui.screens.SignUp
 import com.example.stepfitfrontend.ui.theme.StepFitFrontEndTheme
 import com.example.stepfitfrontend.ui.viewModel.MainViewModel
 import com.example.stepfitfrontend.ui.viewModel.MainViewModelFactory
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 class MainActivity : ComponentActivity() {
 
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
     private val viewModel:MainViewModel by viewModels {
         MainViewModelFactory(repository = repository)
     }
-
+    @ExperimentalPermissionsApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -51,14 +52,14 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+@ExperimentalPermissionsApi
 @Composable
 fun Authentication(viewModel: MainViewModel){
     val navHostController = rememberNavController()
    MainScreen(navHostController = navHostController, viewModel = viewModel)
 }
 
-
+@ExperimentalPermissionsApi
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
